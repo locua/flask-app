@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block body %}
+
+
+<div>
+    <h1>
+        WELCOME: {{uname}}
+    </h1>
+</div>
+
+
+<div class="jumbotron">
+{% for post in posts %}
+    <div class="col bg-primary"> <b>POST:</b> </div>
+    <div class="row bg-info">
+        <br> 
+        <div class="col-md-2 text-primary">{{ post[0] }}</div>
+        <div class="col-md-1 text-secondary">Post id: {{ post[1] }}</div>
+        <div class="col-md-6">" {{ post[2] }} "</div>
+        <div class="col-md-2"><a href='/edit_post?id={{ post[1] }}'> edit </a><a href='/delete_post?id={{ post[1] }}'> delete </a><a href="/add_reply/{{post[1]}}"> reply </a></div>
+        <div class="col-md-2">{{ post[3] }}</div>
+        <br>
+    </div>
+    <div class="col bg-success"> <b>REPLIES:</b> </div>
+    {% for reply in replys %} 
+        {% if reply is defined%}
+            {% if reply[4] == post[1] %}
+                <div class="row bg-warning">
+                <br>
+                    <div class="col-md-2 text-primary"> {{ reply[0] }}</div>
+                    <div class="col-md-1 text-secondary">Reply id: {{ reply[1] }} </div>
+                    <div class="col-md-6">" {{ reply[2] }} "</div>
+                    <div class="col-md-2">{{ reply[3] }}</div>
+                </div>
+            {% endif %}
+         {% endif %} 
+    {% endfor %}
+     <div class="col bg-success"> <b>..</b> </div>
+{% endfor %}
+</div>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-2">An ip associated with this transaction is : {{remaddr}} </div>
+        <div class="col-md-2">This servers ip address is: {{appip}}</div>
+    </div>
+</div>
+
+{% endblock %}
